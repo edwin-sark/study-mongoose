@@ -1,0 +1,2 @@
+# study-mongoose
+Weekly timetable
