@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Study Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto 3em auto;
+        }
+        .schedule {
+            margin: 20px 0;
+        }
+        .schedule h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+        footer {
+            margin-top: 1.5em;
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            table th, table td {
+                padding: 8px;
+            }
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button-container button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Weekly Study Schedule</h1>
+    </header>
+    <main>
+        <!-- Monday - Friday Schedule -->
+        <section class="schedule">
+            <h2>Monday - Friday</h2>
+            <table id="schedule-monday-friday">
+                <tr>
+                    <th>Time</th>
+                    <th>Activity</th>
+                </tr>
+                <tr><td contenteditable="true">6:30 - 7:00 AM</td><td contenteditable="true">Morning Exercise</td></tr>
+                <tr><td contenteditable="true">7:00 - 8:00 AM</td><td contenteditable="true">Breakfast and Personal Time</td></tr>
+                <tr><td contenteditable="true">8:00 - 10:00 AM</td><td contenteditable="true">Academic Studies (Core Focus)</td></tr>
+                <tr><td contenteditable="true">10:00 - 10:15 AM</td><td contenteditable="true">Short Break</td></tr>
+                <tr><td contenteditable="true">10:15 AM - 12:00 PM</td><td contenteditable="true">Academic Studies (Continued)</td></tr>
+                <tr><td contenteditable="true">12:00 - 1:00 PM</td><td contenteditable="true">Lunch and Rest</td></tr>
+                <tr><td contenteditable="true">1:00 - 3:00 PM</td><td contenteditable="true">Academic Studies (Additional Topics or Review)</td></tr>
+                <tr><td contenteditable="true">3:00 - 3:30 PM</td><td contenteditable="true">Snack Break / Leisure</td></tr>
+                <tr><td contenteditable="true">3:30 - 4:30 PM</td><td contenteditable="true">Personal Bible Study (Mon, Wed, Fri)</td></tr>
+                <tr><td contenteditable="true">3:30 - 5:00 PM</td><td contenteditable="true">Personal Development or Projects (Tue, Thu)</td></tr>
+                <tr><td contenteditable="true">5:00 - 6:00 PM</td><td contenteditable="true">Leisure, Reading, or Personal Time</td></tr>
+                <tr><td contenteditable="true">6:00 - 7:00 PM</td><td contenteditable="true">Dinner</td></tr>
+                <tr><td contenteditable="true">7:00 - 8:00 PM</td><td contenteditable="true">Academic Review / Light Study</td></tr>
+                <tr><td contenteditable="true">8:00 - 9:00 PM</td><td contenteditable="true">Storybook Reading / Free Time</td></tr>
+            </table>
+        </section>
+
+        <!-- Save and Revert buttons -->
+        <div class="button-container">
+            <button id="saveButton">Save</button>
+            <button id="revertButton">Revert</button>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Weekly Study Schedule. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Default table content
+        const defaultSchedule = `
+            <tr><td contenteditable="true">6:30 - 7:00 AM</td><td contenteditable="true">Morning Exercise</td></tr>
+            <tr><td contenteditable="true">7:00 - 8:00 AM</td><td contenteditable="true">Breakfast and Personal Time</td></tr>
+            <tr><td contenteditable="true">8:00 - 10:00 AM</td><td contenteditable="true">Academic Studies (Core Focus)</td></tr>
+            <tr><td contenteditable="true">10:00 - 10:15 AM</td><td contenteditable="true">Short Break</td></tr>
+            <tr><td contenteditable="true">10:15 AM - 12:00 PM</td><td contenteditable="true">Academic Studies (Continued)</td></tr>
+            <tr><td contenteditable="true">12:00 - 1:00 PM</td><td contenteditable="true">Lunch and Rest</td></tr>
+            <tr><td contenteditable="true">1:00 - 3:00 PM</td><td contenteditable="true">Academic Studies (Additional Topics or Review)</td></tr>
+            <tr><td contenteditable="true">3:00 - 3:30 PM</td><td contenteditable="true">Snack Break / Leisure</td></tr>
+            <tr><td contenteditable="true">3:30 - 4:30 PM</td><td contenteditable="true">Personal Bible Study (Mon, Wed, Fri)</td></tr>
+            <tr><td contenteditable="true">3:30 - 5:00 PM</td><td contenteditable="true">Personal Development or Projects (Tue, Thu)</td></tr>
+            <tr><td contenteditable="true">5:00 - 6:00 PM</td><td contenteditable="true">Leisure, Reading, or Personal Time</td></tr>
+            <tr><td contenteditable="true">6:00 - 7:00 PM</td><td contenteditable="true">Dinner</td></tr>
+            <tr><td contenteditable="true">7:00 - 8:00 PM</td><td contenteditable="true">Academic Review / Light Study</td></tr>
+            <tr><td contenteditable="true">8:00 - 9:00 PM</td><td contenteditable="true">Storybook Reading / Free Time</td></tr>
+        `;
+
+        // Get table element
+        const table = document.getElementById('schedule-monday-friday');
+
+        // Check for saved schedule in localStorage
+        window.onload = function () {
+            const savedSchedule = localStorage.getItem('schedule');
+            if (savedSchedule) {
+                table.innerHTML = savedSchedule;
+            }
+        };
+
+        // Save function
+        document.getElementById('saveButton').addEventListener('click', function () {
+            const editedSchedule = table.innerHTML;
+            localStorage.setItem('schedule', editedSchedule);
+            alert('Schedule saved temporarily!');
+        });
+
+        // Revert function
+        document.getElementById('revertButton').addEventListener('click', function () {
+            table.innerHTML = defaultSchedule;
+            localStorage.removeItem('schedule');
+            alert('Schedule reverted to default.');
+        });
+    </script>
+</body>
+</html>
